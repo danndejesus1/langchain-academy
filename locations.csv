@@ -1,0 +1,4 @@
+location_id,locationName,locationType,locationCodes
+Location_1c31a37e,New York Warehouse,Warehouse,NYC
+Location_7cb9a103,Los Angeles Port,Port,LAX
+Location_f35c3d18,Chicago Distribution Center,Distribution Center,CHI

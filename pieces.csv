@@ -1,0 +1,5 @@
+id,ofShipment,upid,dimensions,grossWeight,goodsDescription
+Piece_5a54c5b2,Shipment_60ce328a,101,DIM_50a3bfeb,120.0,Box of smartphones
+Piece_181e27e7,Shipment_60ce328a,102,DIM_6df27584,130.0,Carton of tablets
+Piece_f5007e8e,Shipment_8a771318,201,DIM_a1355bee,100.0,Bundle of jackets
+Piece_1e8f80aa,Shipment_8a771318,202,DIM_85cdde0a,90.0,Pack of hats

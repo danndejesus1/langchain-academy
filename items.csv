@@ -1,5 +1,5 @@
 id,inPiece,ofProduct,itemQuantity,weight,unitPrice
-Item_b3e2b024,Piece_5a54c5b2,Product_8e4a31ec,50,100.0,700.0
-Item_32da7c36,Piece_181e27e7,Product_8e590670,40,120.0,450.0
-Item_a08f9c5c,Piece_f5007e8e,Product_12451f08,30,90.0,150.0
-Item_a077d7b8,Piece_1e8f80aa,Product_fa4ba474,20,80.0,20.0
+Item_7379374e,Piece_f75c13b2,Product_ee5b4d0b,5,500.0,1000.0
+Item_3fd25d5d,Piece_8877982e,Product_fd0f07aa,100,4500.0,700.0
+Item_fe227898,Piece_a902e4a0,Product_c64521ec,40,4000.0,150.0
+Item_705dd279,Piece_b1ee55c8,Product_ee488fa6,20,4000.0,300.0

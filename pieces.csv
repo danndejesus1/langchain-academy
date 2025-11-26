@@ -1,5 +1,5 @@
 id,ofShipment,upid,dimensions,grossWeight,goodsDescription
-Piece_5a54c5b2,Shipment_60ce328a,101,DIM_50a3bfeb,120.0,Box of smartphones
-Piece_181e27e7,Shipment_60ce328a,102,DIM_6df27584,130.0,Carton of tablets
-Piece_f5007e8e,Shipment_8a771318,201,DIM_a1355bee,100.0,Bundle of jackets
-Piece_1e8f80aa,Shipment_8a771318,202,DIM_85cdde0a,90.0,Pack of hats
+Piece_f75c13b2,Shipment_ea480ffb,101,DIM_a7856791,500.0,Laptops
+Piece_8877982e,Shipment_ea480ffb,102,DIM_c679de2a,4500.0,Smartphones
+Piece_a902e4a0,Shipment_67aa6a41,201,DIM_4348c3fc,4000.0,Chairs
+Piece_b1ee55c8,Shipment_67aa6a41,202,DIM_f6088369,4000.0,Tables

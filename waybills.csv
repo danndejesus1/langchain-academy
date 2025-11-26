@@ -1,3 +1,3 @@
 waybill_id,waybillType,waybillPrefix,waybillNumber,shipment,departureLocation,arrivalLocation,modularCheckNumber,carrierDeclarationDate,carrierDeclarationSignature,consignorDeclarationSignature,shippingInfo
-Waybill_5601b2a5,Air Waybill,123,456789,Shipment_60ce328a,Location_1c31a37e,Location_7cb9a103,True,2025-11-26T02:32:03.677940+00:00,CarrierSig1,ConsignorSig1,Handle with care
-Waybill_0aef019a,Sea Waybill,124,456790,Shipment_8a771318,Location_f35c3d18,Location_7cb9a103,False,2025-11-26T02:32:03.678539+00:00,CarrierSig2,ConsignorSig2,Keep dry
+Waybill_06ea7638,Air Waybill,123,1001,Shipment_ea480ffb,Location_56e6741b,Location_389cd5e7,True,2025-11-26T02:48:39.618888+00:00,CarrierSig001,ConsignorSig001,Handle with care
+Waybill_32e96676,Sea Waybill,124,1002,Shipment_67aa6a41,Location_56e6741b,Location_fbb98db3,False,2025-11-26T02:48:39.619231+00:00,CarrierSig002,ConsignorSig002,Keep dry

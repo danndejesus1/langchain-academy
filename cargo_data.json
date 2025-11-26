@@ -1,184 +1,184 @@
 {
   "shipments": [
     {
-      "id": "https://onerecord.iata.org/Shipment/Shipment_60ce328a",
-      "goodsDescription": "Electronics and gadgets",
-      "totalGrossWeight": 1200.0,
+      "id": "https://onerecord.iata.org/Shipment/Shipment_ea480ffb",
+      "goodsDescription": "Electronic Goods",
+      "totalGrossWeight": 5000.0,
       "totalPiece": 10,
       "incoterms": "FOB"
     },
     {
-      "id": "https://onerecord.iata.org/Shipment/Shipment_8a771318",
-      "goodsDescription": "Apparel and accessories",
-      "totalGrossWeight": 800.0,
-      "totalPiece": 15,
+      "id": "https://onerecord.iata.org/Shipment/Shipment_67aa6a41",
+      "goodsDescription": "Furniture",
+      "totalGrossWeight": 8000.0,
+      "totalPiece": 8,
       "incoterms": "CIF"
     }
   ],
   "waybills": [
     {
-      "waybill_id": "Waybill_5601b2a5",
+      "waybill_id": "Waybill_06ea7638",
       "waybillType": "Air Waybill",
       "waybillPrefix": 123,
-      "waybillNumber": 456789,
-      "shipment": "Shipment_60ce328a",
-      "departureLocation": "Location_1c31a37e",
-      "arrivalLocation": "Location_7cb9a103",
+      "waybillNumber": 1001,
+      "shipment": "Shipment_ea480ffb",
+      "departureLocation": "Location_56e6741b",
+      "arrivalLocation": "Location_389cd5e7",
       "modularCheckNumber": true,
-      "carrierDeclarationDate": "2025-11-26T02:32:03.677940+00:00",
-      "carrierDeclarationSignature": "CarrierSig1",
-      "consignorDeclarationSignature": "ConsignorSig1",
+      "carrierDeclarationDate": "2025-11-26T02:48:39.618888+00:00",
+      "carrierDeclarationSignature": "CarrierSig001",
+      "consignorDeclarationSignature": "ConsignorSig001",
       "shippingInfo": "Handle with care"
     },
     {
-      "waybill_id": "Waybill_0aef019a",
+      "waybill_id": "Waybill_32e96676",
       "waybillType": "Sea Waybill",
       "waybillPrefix": 124,
-      "waybillNumber": 456790,
-      "shipment": "Shipment_8a771318",
-      "departureLocation": "Location_f35c3d18",
-      "arrivalLocation": "Location_7cb9a103",
+      "waybillNumber": 1002,
+      "shipment": "Shipment_67aa6a41",
+      "departureLocation": "Location_56e6741b",
+      "arrivalLocation": "Location_fbb98db3",
       "modularCheckNumber": false,
-      "carrierDeclarationDate": "2025-11-26T02:32:03.678539+00:00",
-      "carrierDeclarationSignature": "CarrierSig2",
-      "consignorDeclarationSignature": "ConsignorSig2",
+      "carrierDeclarationDate": "2025-11-26T02:48:39.619231+00:00",
+      "carrierDeclarationSignature": "CarrierSig002",
+      "consignorDeclarationSignature": "ConsignorSig002",
       "shippingInfo": "Keep dry"
     }
   ],
   "parties": [
     {
-      "party_id": "Party_0b522518",
+      "party_id": "Party_72e31e7a",
       "partyROLE": "Carrier",
-      "partyDetails": "Company_2bca260d"
+      "partyDetails": "Company_de1c658a"
     },
     {
-      "party_id": "Party_e22d4567",
-      "partyROLE": "Consignor",
-      "partyDetails": "Company_2bca260d"
+      "party_id": "Party_70413a86",
+      "partyROLE": "Shipper",
+      "partyDetails": "Company_de1c658a"
     }
   ],
   "companies": [
     {
-      "company_id": "Company_2bca260d",
-      "name": "Global Freight Ltd",
-      "shortName": "GFL",
-      "iataCargoAgentCode": 1234,
-      "iataCargoAgentLocationIdentifier": "GFLHUB",
+      "company_id": "Company_de1c658a",
+      "name": "Global Freight Co.",
+      "shortName": "GFC",
+      "iataCargoAgentCode": 123,
+      "iataCargoAgentLocationIdentifier": "GFC001",
       "basedAtLocation": "LOC001"
     }
   ],
   "locations": [
     {
-      "location_id": "Location_1c31a37e",
-      "locationName": "New York Warehouse",
-      "locationType": "Warehouse",
-      "locationCodes": "NYC"
+      "location_id": "Location_56e6741b",
+      "locationName": "New York Port",
+      "locationType": "Port",
+      "locationCodes": "NYC001"
     },
     {
-      "location_id": "Location_7cb9a103",
+      "location_id": "Location_389cd5e7",
       "locationName": "Los Angeles Port",
       "locationType": "Port",
-      "locationCodes": "LAX"
+      "locationCodes": "LAX002"
     },
     {
-      "location_id": "Location_f35c3d18",
-      "locationName": "Chicago Distribution Center",
-      "locationType": "Distribution Center",
-      "locationCodes": "CHI"
+      "location_id": "Location_fbb98db3",
+      "locationName": "Chicago Warehouse",
+      "locationType": "Warehouse",
+      "locationCodes": "CHI003"
     }
   ],
   "pieces": [
     {
-      "id": "Piece_5a54c5b2",
-      "ofShipment": "Shipment_60ce328a",
+      "id": "Piece_f75c13b2",
+      "ofShipment": "Shipment_ea480ffb",
       "upid": 101,
-      "dimensions": "DIM_50a3bfeb",
-      "grossWeight": 120.0,
-      "goodsDescription": "Box of smartphones"
+      "dimensions": "DIM_a7856791",
+      "grossWeight": 500.0,
+      "goodsDescription": "Laptops"
     },
     {
-      "id": "Piece_181e27e7",
-      "ofShipment": "Shipment_60ce328a",
+      "id": "Piece_8877982e",
+      "ofShipment": "Shipment_ea480ffb",
       "upid": 102,
-      "dimensions": "DIM_6df27584",
-      "grossWeight": 130.0,
-      "goodsDescription": "Carton of tablets"
+      "dimensions": "DIM_c679de2a",
+      "grossWeight": 4500.0,
+      "goodsDescription": "Smartphones"
     },
     {
-      "id": "Piece_f5007e8e",
-      "ofShipment": "Shipment_8a771318",
+      "id": "Piece_a902e4a0",
+      "ofShipment": "Shipment_67aa6a41",
       "upid": 201,
-      "dimensions": "DIM_a1355bee",
-      "grossWeight": 100.0,
-      "goodsDescription": "Bundle of jackets"
+      "dimensions": "DIM_4348c3fc",
+      "grossWeight": 4000.0,
+      "goodsDescription": "Chairs"
     },
     {
-      "id": "Piece_1e8f80aa",
-      "ofShipment": "Shipment_8a771318",
+      "id": "Piece_b1ee55c8",
+      "ofShipment": "Shipment_67aa6a41",
       "upid": 202,
-      "dimensions": "DIM_85cdde0a",
-      "grossWeight": 90.0,
-      "goodsDescription": "Pack of hats"
+      "dimensions": "DIM_f6088369",
+      "grossWeight": 4000.0,
+      "goodsDescription": "Tables"
     }
   ],
   "items": [
     {
-      "id": "Item_b3e2b024",
-      "inPiece": "Piece_5a54c5b2",
-      "ofProduct": "Product_8e4a31ec",
-      "itemQuantity": 50,
-      "weight": 100.0,
+      "id": "Item_7379374e",
+      "inPiece": "Piece_f75c13b2",
+      "ofProduct": "Product_ee5b4d0b",
+      "itemQuantity": 5,
+      "weight": 500.0,
+      "unitPrice": 1000.0
+    },
+    {
+      "id": "Item_3fd25d5d",
+      "inPiece": "Piece_8877982e",
+      "ofProduct": "Product_fd0f07aa",
+      "itemQuantity": 100,
+      "weight": 4500.0,
       "unitPrice": 700.0
     },
     {
-      "id": "Item_32da7c36",
-      "inPiece": "Piece_181e27e7",
-      "ofProduct": "Product_8e590670",
+      "id": "Item_fe227898",
+      "inPiece": "Piece_a902e4a0",
+      "ofProduct": "Product_c64521ec",
       "itemQuantity": 40,
-      "weight": 120.0,
-      "unitPrice": 450.0
-    },
-    {
-      "id": "Item_a08f9c5c",
-      "inPiece": "Piece_f5007e8e",
-      "ofProduct": "Product_12451f08",
-      "itemQuantity": 30,
-      "weight": 90.0,
+      "weight": 4000.0,
       "unitPrice": 150.0
     },
     {
-      "id": "Item_a077d7b8",
-      "inPiece": "Piece_1e8f80aa",
-      "ofProduct": "Product_fa4ba474",
+      "id": "Item_705dd279",
+      "inPiece": "Piece_b1ee55c8",
+      "ofProduct": "Product_ee488fa6",
       "itemQuantity": 20,
-      "weight": 80.0,
-      "unitPrice": 20.0
+      "weight": 4000.0,
+      "unitPrice": 300.0
     }
   ],
   "products": [
     {
-      "id": "Product_8e4a31ec",
-      "name": "Smartphone Model X",
-      "code": "SPX2024",
+      "id": "Product_ee5b4d0b",
+      "name": "Laptop",
+      "code": "ELEC001",
+      "price": 1000.0
+    },
+    {
+      "id": "Product_fd0f07aa",
+      "name": "Smartphone",
+      "code": "ELEC002",
       "price": 700.0
     },
     {
-      "id": "Product_8e590670",
-      "name": "Tablet Model Y",
-      "code": "TBY2024",
-      "price": 450.0
-    },
-    {
-      "id": "Product_12451f08",
-      "name": "Winter Jacket",
-      "code": "WJ2024",
+      "id": "Product_c64521ec",
+      "name": "Chair",
+      "code": "FURN001",
       "price": 150.0
     },
     {
-      "id": "Product_fa4ba474",
-      "name": "Baseball Cap",
-      "code": "BC2024",
-      "price": 20.0
+      "id": "Product_ee488fa6",
+      "name": "Table",
+      "code": "FURN002",
+      "price": 300.0
     }
   ]
 }

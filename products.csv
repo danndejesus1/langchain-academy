@@ -1,5 +1,5 @@
 id,name,code,price
-Product_8e4a31ec,Smartphone Model X,SPX2024,700.0
-Product_8e590670,Tablet Model Y,TBY2024,450.0
-Product_12451f08,Winter Jacket,WJ2024,150.0
-Product_fa4ba474,Baseball Cap,BC2024,20.0
+Product_ee5b4d0b,Laptop,ELEC001,1000.0
+Product_fd0f07aa,Smartphone,ELEC002,700.0
+Product_c64521ec,Chair,FURN001,150.0
+Product_ee488fa6,Table,FURN002,300.0

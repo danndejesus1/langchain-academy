@@ -1,183 +1,183 @@
 {
   "shipments": [
     {
-      "id": "https://onerecord.iata.org/Shipment/Shipment_4ad0c7bf",
-      "goodsDescription": "Electronics",
-      "totalGrossWeight": 1000.0,
+      "id": "https://onerecord.iata.org/Shipment/Shipment_9562cd3e",
+      "goodsDescription": "Electronics and gadgets",
+      "totalGrossWeight": 1500.0,
       "totalPiece": 10,
-      "incoterms": "DAP"
+      "incoterms": "FOB"
     },
     {
-      "id": "https://onerecord.iata.org/Shipment/Shipment_73f19c1c",
-      "goodsDescription": "Clothing",
-      "totalGrossWeight": 500.0,
+      "id": "https://onerecord.iata.org/Shipment/Shipment_bedfd6ec",
+      "goodsDescription": "Apparel and textiles",
+      "totalGrossWeight": 800.0,
       "totalPiece": 5,
-      "incoterms": "FOB"
+      "incoterms": "CIF"
     }
   ],
   "waybills": [
     {
-      "waybill_id": "Waybill_77854114",
-      "waybillType": "Airway Bill",
+      "waybill_id": "Waybill_dd6e8f0d",
+      "waybillType": "Air Waybill",
       "waybillPrefix": 123,
       "waybillNumber": 456789,
-      "shipment": "Shipment_4ad0c7bf",
-      "departureLocation": "Location_4172bfa9",
-      "arrivalLocation": "Location_a7185ffc",
+      "shipment": "Shipment_9562cd3e",
+      "departureLocation": "Location_0e61b543",
+      "arrivalLocation": "Location_30226a9d",
       "modularCheckNumber": true,
-      "carrierDeclarationDate": "2025-11-26T00:59:25.922920+00:00",
-      "carrierDeclarationSignature": "SignatureCarrierA",
-      "consignorDeclarationSignature": "SignatureConsignorA",
+      "carrierDeclarationDate": "2025-11-26T01:46:51.313392+00:00",
+      "carrierDeclarationSignature": "GAL Carrier Signature",
+      "consignorDeclarationSignature": "GAL Consignor Signature",
       "shippingInfo": "Handle with care"
     },
     {
-      "waybill_id": "Waybill_516587b0",
+      "waybill_id": "Waybill_763e3804",
       "waybillType": "Sea Waybill",
-      "waybillPrefix": 124,
-      "waybillNumber": 987654,
-      "shipment": "Shipment_73f19c1c",
-      "departureLocation": "Location_4172bfa9",
-      "arrivalLocation": "Location_bef31319",
+      "waybillPrefix": 789,
+      "waybillNumber": 123456,
+      "shipment": "Shipment_bedfd6ec",
+      "departureLocation": "Location_30226a9d",
+      "arrivalLocation": "Location_c052ec08",
       "modularCheckNumber": false,
-      "carrierDeclarationDate": "2025-11-26T00:59:25.923629+00:00",
-      "carrierDeclarationSignature": "SignatureCarrierB",
-      "consignorDeclarationSignature": "SignatureConsignorB",
+      "carrierDeclarationDate": "2025-11-26T01:46:57.226793+00:00",
+      "carrierDeclarationSignature": "GAL Carrier Signature",
+      "consignorDeclarationSignature": "GAL Consignor Signature",
       "shippingInfo": "Keep dry"
     }
   ],
   "parties": [
     {
-      "party_id": "Party_b51d5b59",
+      "party_id": "Party_4ce6d2d6",
       "partyROLE": "Carrier",
-      "partyDetails": "Company_6c767efd"
+      "partyDetails": "Company_4fe8aa98"
     },
     {
-      "party_id": "Party_4a5d1b08",
+      "party_id": "Party_a8ea4e55",
       "partyROLE": "Consignor",
-      "partyDetails": "Company_6c767efd"
+      "partyDetails": "Company_4fe8aa98"
     }
   ],
   "companies": [
     {
-      "company_id": "Company_6c767efd",
-      "name": "Global Logistics Ltd.",
-      "shortName": "GLL",
-      "iataCargoAgentCode": 101,
-      "iataCargoAgentLocationIdentifier": "LOC101",
-      "basedAtLocation": "Location A"
+      "company_id": "Company_4fe8aa98",
+      "name": "Global Air Logistics",
+      "shortName": "GAL",
+      "iataCargoAgentCode": 345,
+      "iataCargoAgentLocationIdentifier": "GAL01",
+      "basedAtLocation": "LOC01"
     }
   ],
   "locations": [
     {
-      "location_id": "Location_4172bfa9",
-      "locationName": "Location A",
+      "location_id": "Location_0e61b543",
+      "locationName": "New York Warehouse",
       "locationType": "Warehouse",
-      "locationCodes": "LOC101"
+      "locationCodes": "NYC"
     },
     {
-      "location_id": "Location_a7185ffc",
-      "locationName": "Location B",
+      "location_id": "Location_30226a9d",
+      "locationName": "Los Angeles Port",
       "locationType": "Port",
-      "locationCodes": "LOC102"
+      "locationCodes": "LAX"
     },
     {
-      "location_id": "Location_bef31319",
-      "locationName": "Location C",
+      "location_id": "Location_c052ec08",
+      "locationName": "Chicago Airport",
       "locationType": "Airport",
-      "locationCodes": "LOC103"
+      "locationCodes": "ORD"
     }
   ],
   "pieces": [
     {
-      "id": "Piece_ef792afe",
-      "ofShipment": "Shipment_4ad0c7bf",
+      "id": "Piece_e836ebf8",
+      "ofShipment": "Shipment_9562cd3e",
       "upid": 101,
-      "dimensions": "DIM_eab6c417",
-      "grossWeight": 100.0,
-      "goodsDescription": "Electronics Batch 1"
+      "dimensions": "DIM_379cf758",
+      "grossWeight": 150.0,
+      "goodsDescription": "Box of smartphones"
     },
     {
-      "id": "Piece_8881931e",
-      "ofShipment": "Shipment_4ad0c7bf",
+      "id": "Piece_b414b4a2",
+      "ofShipment": "Shipment_9562cd3e",
       "upid": 102,
-      "dimensions": "DIM_94445db1",
+      "dimensions": "DIM_e2c430ce",
       "grossWeight": 200.0,
-      "goodsDescription": "Electronics Batch 2"
+      "goodsDescription": "Box of laptops"
     },
     {
-      "id": "Piece_d58c48d6",
-      "ofShipment": "Shipment_73f19c1c",
+      "id": "Piece_c09a77e1",
+      "ofShipment": "Shipment_bedfd6ec",
       "upid": 201,
-      "dimensions": "DIM_6ec7dc4c",
-      "grossWeight": 250.0,
-      "goodsDescription": "Clothing Batch 1"
+      "dimensions": "DIM_cc19c927",
+      "grossWeight": 300.0,
+      "goodsDescription": "Box of T-shirts"
     },
     {
-      "id": "Piece_ad03474f",
-      "ofShipment": "Shipment_73f19c1c",
+      "id": "Piece_b357d50c",
+      "ofShipment": "Shipment_bedfd6ec",
       "upid": 202,
-      "dimensions": "DIM_911e7f3f",
-      "grossWeight": 250.0,
-      "goodsDescription": "Clothing Batch 2"
+      "dimensions": "DIM_a71d550b",
+      "grossWeight": 500.0,
+      "goodsDescription": "Box of jeans"
     }
   ],
   "items": [
     {
-      "id": "Item_d8492654",
-      "inPiece": "Piece_ef792afe",
-      "ofProduct": "Product_7ef2a3d0",
-      "itemQuantity": 50,
-      "weight": 50.0,
-      "unitPrice": 600.0
-    },
-    {
-      "id": "Item_6e033fb0",
-      "inPiece": "Piece_8881931e",
-      "ofProduct": "Product_2f89ad19",
+      "id": "Item_42ddae45",
+      "inPiece": "Piece_e836ebf8",
+      "ofProduct": "Product_5474182a",
       "itemQuantity": 50,
       "weight": 150.0,
+      "unitPrice": 700.0
+    },
+    {
+      "id": "Item_92727d6d",
+      "inPiece": "Piece_b414b4a2",
+      "ofProduct": "Product_dde894de",
+      "itemQuantity": 30,
+      "weight": 200.0,
       "unitPrice": 1200.0
     },
     {
-      "id": "Item_c5ce7bae",
-      "inPiece": "Piece_d58c48d6",
-      "ofProduct": "Product_c92ad42b",
+      "id": "Item_31688bed",
+      "inPiece": "Piece_c09a77e1",
+      "ofProduct": "Product_dfdc28ba",
       "itemQuantity": 100,
-      "weight": 150.0,
+      "weight": 300.0,
       "unitPrice": 20.0
     },
     {
-      "id": "Item_1b37d638",
-      "inPiece": "Piece_ad03474f",
-      "ofProduct": "Product_5c37d372",
+      "id": "Item_304664ca",
+      "inPiece": "Piece_b357d50c",
+      "ofProduct": "Product_35d457b6",
       "itemQuantity": 50,
-      "weight": 100.0,
+      "weight": 500.0,
       "unitPrice": 40.0
     }
   ],
   "products": [
     {
-      "id": "Product_7ef2a3d0",
+      "id": "Product_5474182a",
       "name": "Smartphone",
-      "code": "SPH1001",
-      "price": 600.0
+      "code": "SPH01",
+      "price": 700.0
     },
     {
-      "id": "Product_2f89ad19",
+      "id": "Product_dde894de",
       "name": "Laptop",
-      "code": "LTP2001",
+      "code": "LTP01",
       "price": 1200.0
     },
     {
-      "id": "Product_c92ad42b",
+      "id": "Product_dfdc28ba",
       "name": "T-shirt",
-      "code": "TSH3001",
+      "code": "TSH01",
       "price": 20.0
     },
     {
-      "id": "Product_5c37d372",
+      "id": "Product_35d457b6",
       "name": "Jeans",
-      "code": "JNS4001",
+      "code": "JNS01",
       "price": 40.0
     }
   ]

@@ -255,4 +255,15 @@ Make the data realistic with proper weights, quantities, and descriptions."""
                 "tool_call_id": tool_call["id"]
             })
     
+
     save_data()
+
+    
+    try:
+        from convert import convert_top_level_json_to_csvs
+        converted_files = convert_top_level_json_to_csvs(file_path, out_dir=None, verbose=True)
+        print("Conversion completed. Created files:")
+        for p in converted_files:
+            print(" -", p)
+    except Exception as e:
+        print(f"Conversion to CSV failed: {e}")

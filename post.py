@@ -3,10 +3,11 @@ import json
 import requests
 from typing import Any
 from datetime import datetime, timezone
+from pathlib import Path
 from dotenv import load_dotenv
 from langchain_openai import AzureChatOpenAI
 from langchain_core.tools import tool
-from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.messages import HumanMessage
 
 # Load environment variables from .env file
 load_dotenv()
@@ -19,6 +20,7 @@ API_BASE_URL = "http://localhost:8080"
 KEYCLOAK_URL = "http://localhost:8989/realms/neone/protocol/openid-connect/token"
 CLIENT_ID = "neone-client"
 CLIENT_SECRET = "lx7ThS5aYggdsMm42BP3wMrVqKm9WpNY"
+STATE_FILE = "cargo_state.json"
 
 # Store extracted IDs
 cargo_state = {
@@ -32,6 +34,27 @@ cargo_state = {
     "piece_id": None,
     "waybill_id": None,
 }
+
+# ============================================================================
+# STATE PERSISTENCE - DEFINED FIRST
+# ============================================================================
+
+def load_state():
+    """Load state from file if it exists"""
+    global cargo_state
+    if Path(STATE_FILE).exists():
+        with open(STATE_FILE, "r") as f:
+            saved_state = json.load(f)
+            cargo_state.update(saved_state)
+            print(f"✓ Loaded saved state from {STATE_FILE}")
+            return True
+    return False
+
+def save_state():
+    """Save state to file for reuse"""
+    with open(STATE_FILE, "w") as f:
+        json.dump(cargo_state, f, indent=2)
+    print(f"✓ Saved state to {STATE_FILE}")
 
 # ============================================================================
 # HELPER FUNCTIONS
@@ -67,7 +90,6 @@ def make_api_request(method: str, endpoint: str, body: dict = None, extract_id: 
         "Authorization": f"Bearer {cargo_state['access_token']}"
     }
     
-    # Debug: print request body for events
     if "/logistics-events" in endpoint and body:
         print(f"\n📤 Posting to {endpoint}")
         print(f"Body: {json.dumps(body, indent=2)}")
@@ -91,7 +113,6 @@ def make_api_request(method: str, endpoint: str, body: dict = None, extract_id: 
     if extract_id:
         return extract_id_from_header(response)
     
-    # Handle empty responses (201/204 with no body)
     if response.status_code in [201, 204] or not response.text:
         return {"status": "success"}
     
@@ -101,7 +122,7 @@ def make_api_request(method: str, endpoint: str, body: dict = None, extract_id: 
         return {"status": "success"}
 
 # ============================================================================
-# TOOL DEFINITIONS (LangChain Tools using @tool decorator)
+# TOOL DEFINITIONS
 # ============================================================================
 
 @tool
@@ -113,11 +134,16 @@ def authenticate() -> str:
 @tool
 def create_shipper() -> str:
     """Create LEGO Jiaxing Factory as the shipper organization"""
+    if cargo_state["org_shipper_id"]:
+        return f"✓ Using existing shipper: {cargo_state['org_shipper_id']}"
+    
     body = {
         "@context": {"cargo": "https://onerecord.iata.org/ns/cargo#"},
         "@type": "cargo:Organization",
         "cargo:name": "LEGO Jiaxing Factory",
         "cargo:description": "The Shipper",
+        "cargo:basedAtLocation": "Jiaxing, China",
+        
     }
     shipper_id = make_api_request("POST", "/logistics-objects", body, extract_id=True)
     cargo_state["org_shipper_id"] = shipper_id
@@ -126,6 +152,9 @@ def create_shipper() -> str:
 @tool
 def create_consignee() -> str:
     """Create LEGO Store Philippines as the consignee"""
+    if cargo_state["org_consignee_id"]:
+        return f"✓ Using existing consignee: {cargo_state['org_consignee_id']}"
+    
     body = {
         "@context": {"cargo": "https://onerecord.iata.org/ns/cargo#"},
         "@type": "cargo:Organization",
@@ -139,6 +168,9 @@ def create_consignee() -> str:
 @tool
 def create_forwarder() -> str:
     """Create DHL Global Forwarding China as origin forwarder"""
+    if cargo_state["org_fwd_origin_id"]:
+        return f"✓ Using existing forwarder: {cargo_state['org_fwd_origin_id']}"
+    
     body = {
         "@context": {"cargo": "https://onerecord.iata.org/ns/cargo#"},
         "@type": "cargo:Organization",
@@ -152,6 +184,9 @@ def create_forwarder() -> str:
 @tool
 def create_carrier() -> str:
     """Create Philippine Airlines as the carrier"""
+    if cargo_state["org_carrier_id"]:
+        return f"✓ Using existing carrier: {cargo_state['org_carrier_id']}"
+    
     body = {
         "@context": {"cargo": "https://onerecord.iata.org/ns/cargo#"},
         "@type": "cargo:Organization",
@@ -165,6 +200,9 @@ def create_carrier() -> str:
 @tool
 def create_location() -> str:
     """Create Shanghai Pudong (PVG) location"""
+    if cargo_state["pvg_location_id"]:
+        return f"✓ Using existing location: {cargo_state['pvg_location_id']}"
+    
     body = {
         "@context": {"cargo": "https://onerecord.iata.org/ns/cargo#"},
         "@type": "cargo:Location",
@@ -176,57 +214,57 @@ def create_location() -> str:
     return f"✓ Location created: {location_id}"
 
 @tool
-def create_shipment() -> str:
-    """Create shipment with waybill 079-LEGO-001"""
+def create_shipment(waybill_number: str, goods_description: str) -> str:
+    """Create shipment with waybill number and goods description - ALWAYS creates new"""
     body = {
         "@context": {"cargo": "https://onerecord.iata.org/ns/cargo#"},
         "@type": "cargo:Shipment",
-        "cargo:waybillNumber": "079-LEGO-001",
-        "cargo:goodsDescription": "LEGO Star Wars Sets",
+        "cargo:waybillNumber": waybill_number,
+        "cargo:goodsDescription": goods_description,
         "cargo:shipper": {"@id": f"{API_BASE_URL}/logistics-objects/{cargo_state['org_shipper_id']}"},
         "cargo:consignee": {"@id": f"{API_BASE_URL}/logistics-objects/{cargo_state['org_consignee_id']}"},
     }
     shipment_id = make_api_request("POST", "/logistics-objects", body, extract_id=True)
     cargo_state["shipment_id"] = shipment_id
-    return f"✓ Shipment created: {shipment_id}"
+    return f"✓ Shipment created with waybill {waybill_number} ({goods_description}): {shipment_id}"
 
 @tool
-def create_piece() -> str:
-    """Create physical piece (box) for the shipment"""
+def create_piece(gross_weight: float, length: float, width: float, height: float, unit: str = "kg") -> str:
+    """Create physical piece (box) for the shipment - ALWAYS creates new"""
     body = {
         "@context": {"cargo": "https://onerecord.iata.org/ns/cargo#"},
         "@type": "cargo:Piece",
         "cargo:grossWeight": {
             "@type": "cargo:Value",
-            "cargo:numericalValue": 50,
-            "cargo:unit": "kg",
+            "cargo:numericalValue": gross_weight,
+            "cargo:unit": unit,
         },
         "cargo:dimensions": {
             "@type": "cargo:Dimensions",
-            "cargo:length": {"@type": "cargo:Value", "cargo:numericalValue": 50, "cargo:unit": "cm"},
-            "cargo:width": {"@type": "cargo:Value", "cargo:numericalValue": 50, "cargo:unit": "cm"},
-            "cargo:height": {"@type": "cargo:Value", "cargo:numericalValue": 50, "cargo:unit": "cm"},
+            "cargo:length": {"@type": "cargo:Value", "cargo:numericalValue": length, "cargo:unit": "cm"},
+            "cargo:width": {"@type": "cargo:Value", "cargo:numericalValue": width, "cargo:unit": "cm"},
+            "cargo:height": {"@type": "cargo:Value", "cargo:numericalValue": height, "cargo:unit": "cm"},
         },
         "cargo:shipment": {"@id": f"{API_BASE_URL}/logistics-objects/{cargo_state['shipment_id']}"},
     }
     piece_id = make_api_request("POST", "/logistics-objects", body, extract_id=True)
     cargo_state["piece_id"] = piece_id
-    return f"✓ Piece created: {piece_id}"
+    return f"✓ Piece created: {gross_weight}{unit}, Dimensions {length}x{width}x{height}cm: {piece_id}"
 
 @tool
-def create_waybill() -> str:
-    """Create Air Waybill linking shipment, forwarder, and carrier"""
+def create_waybill(waybill_number: str) -> str:
+    """Create Air Waybill (AWB) - ALWAYS creates new"""
     body = {
         "@context": {"cargo": "https://onerecord.iata.org/ns/cargo#"},
         "@type": "cargo:Waybill",
-        "cargo:waybillNumber": "079-12345678",
+        "cargo:waybillNumber": waybill_number,
         "cargo:shipment": {"@id": f"{API_BASE_URL}/logistics-objects/{cargo_state['shipment_id']}"},
         "cargo:bookingParty": {"@id": f"{API_BASE_URL}/logistics-objects/{cargo_state['org_fwd_origin_id']}"},
         "cargo:carrier": {"@id": f"{API_BASE_URL}/logistics-objects/{cargo_state['org_carrier_id']}"},
     }
     waybill_id = make_api_request("POST", "/logistics-objects", body, extract_id=True)
     cargo_state["waybill_id"] = waybill_id
-    return f"✓ Waybill created: {waybill_id}"
+    return f"✓ Waybill created with number {waybill_number}: {waybill_id}"
 
 @tool
 def log_rcs_event() -> str:
@@ -258,7 +296,6 @@ def log_rcs_event() -> str:
         "cargo:partialEventIndicator": False
     }
     
-    # Append event directly to piece
     make_api_request("POST", f"/logistics-objects/{piece_id}/logistics-events", body)
     return "✓ Event logged: RCS - Received from Shipper/Agent"
 
@@ -282,7 +319,6 @@ def log_man_event() -> str:
         "cargo:partialEventIndicator": False
     }
     
-    # Append event directly to piece
     make_api_request("POST", f"/logistics-objects/{piece_id}/logistics-events", body)
     return "✓ Event logged: MAN - Manifested on Flight"
 
@@ -306,7 +342,6 @@ def log_dep_event() -> str:
         "cargo:partialEventIndicator": False
     }
     
-    # Append event directly to piece
     make_api_request("POST", f"/logistics-objects/{piece_id}/logistics-events", body)
     return "✓ Event logged: DEP - Flight Departed"
 
@@ -330,7 +365,6 @@ def log_arr_event() -> str:
         "cargo:partialEventIndicator": False
     }
     
-    # Append event directly to piece
     make_api_request("POST", f"/logistics-objects/{piece_id}/logistics-events", body)
     return "✓ Event logged: ARR - Flight Arrived"
 
@@ -354,18 +388,16 @@ def log_dlv_event() -> str:
         "cargo:partialEventIndicator": False
     }
     
-    # Append event directly to piece
     make_api_request("POST", f"/logistics-objects/{piece_id}/logistics-events", body)
     return "✓ Event logged: DLV - Delivered to Delivery Agent"
 
 @tool
 def log_pod_event() -> str:
     """Log POD (Proof of Delivery) event"""
-    piece_id = cargo_state.get("piece_id")
     shipment_id = cargo_state.get("shipment_id")
     
-    if not piece_id or not shipment_id:
-        raise RuntimeError("Cannot log POD event: missing piece_id or shipment_id")
+    if not shipment_id:
+        raise RuntimeError("Cannot log POD event: missing shipment_id")
     
     timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     
@@ -379,7 +411,6 @@ def log_pod_event() -> str:
         "cargo:partialEventIndicator": False
     }
     
-    # Append event to shipment
     make_api_request("POST", f"/logistics-objects/{shipment_id}/logistics-events", body)
     return "✓ Event logged: POD - Proof of Delivery"
 
@@ -391,6 +422,10 @@ if __name__ == "__main__":
     print("="*70)
     print("LEGO CARGO LOGISTICS WORKFLOW - LangChain + Azure OpenAI")
     print("="*70)
+    
+    # Load saved state if it exists
+    print("\n📦 Checking for saved state...")
+    state_loaded = load_state()
     
     llm = AzureChatOpenAI(
         model=os.getenv('AZURE_OPENAI_DEPLOYMENT'),
@@ -421,28 +456,33 @@ if __name__ == "__main__":
 Your job is to orchestrate a complete LEGO shipment from China to the Philippines.
 Execute the workflow step by step in this exact order:
 1. Authenticate
-2. Create master data (shipper, consignee, forwarder, carrier, location)
-3. Create shipment and piece
-4. Create waybill
-5. Log all logistics events in sequence (RCS → MAN → DEP → ARR → DLV → POD)
+2. Create master data (shipper, consignee, forwarder, carrier, location) - reuse if already exists
+3. Create shipment with UNIQUE LEGO product and waybill number EACH TIME
+4. Create piece with realistic weight and dimensions for that LEGO product
+5. Create waybill with unique AWB number
+6. Log all logistics events in sequence (RCS → MAN → DEP → ARR → DLV → POD)
 
-Use the tools available to you. After each step, explain what was created.
-Wait for each tool to complete before calling the next one."""
+REQUIREMENTS - GENERATE DIFFERENT LEGO PRODUCTS EACH TIME:
+- Shipment waybill: Use format like 280-LEGO-1125, 750-LEGO-0825, 390-LEGO-2401
+- Goods: Different LEGO product sets each time:
+  * "LEGO Star Wars Collection - Multiple Sets" (120kg, 100x80x60cm)
+  * "LEGO Architecture Series Assortment" (85kg, 90x70x50cm)
+  * "LEGO Technic Heavy Machinery Sets" (200kg, 150x100x80cm)
+  * "LEGO Friends Playset Bundle" (60kg, 80x60x45cm)
+  * "LEGO Classic Large Brick Sets" (95kg, 100x75x55cm)
+  * "LEGO Ninjago Movie Collection" (110kg, 105x75x65cm)
+  * "LEGO Harry Potter Hogwarts Sets" (140kg, 120x85x70cm)
+  * "LEGO Ideas Creator Sets Mix" (75kg, 95x65x50cm)
+- AWB numbers: Unique like 280-98765432, 750-54321098, 390-11223344
+
+CRITICAL: Create a NEW DIFFERENT LEGO product shipment EVERY RUN.
+Reuse the same shipper/consignee/forwarder/carrier/location (saved in state).
+Use the tools with different parameters each execution."""
     
-    prompt = ChatPromptTemplate.from_messages([
-        ("system", system_prompt),
-        MessagesPlaceholder(variable_name="messages"),
-    ])
-    
-    # Use the simpler direct approach with bind_tools
-    from langchain_core.messages import HumanMessage
-    
-    # Bind tools to LLM
     llm_with_tools = llm.bind_tools(tools)
     
-    # Simple agentic loop
     messages = [
-        HumanMessage(content="Execute the complete LEGO shipment workflow from China to Philippines. Create all entities and log all events in sequence.")
+        HumanMessage(content="Create a NEW LEGO shipment with DIFFERENT product type, waybill number, weight, and dimensions than previous runs. Execute the complete workflow from authentication through all logistics events.")
     ]
     
     print("\n🚀 Starting workflow execution...\n")
@@ -451,17 +491,14 @@ Wait for each tool to complete before calling the next one."""
         response = llm_with_tools.invoke(messages)
         messages.append(response)
         
-        # Check if we're done (no tool calls)
         if not response.tool_calls:
             print(f"\n✅ Agent completed: {response.content}")
             break
         
-        # Execute each tool call
         for tool_call in response.tool_calls:
             tool_name = tool_call["name"]
             print(f"\n🔧 Executing tool: {tool_name}")
             
-            # Find and execute the tool
             tool_to_run = next((t for t in tools if t.name == tool_name), None)
             if tool_to_run:
                 try:
@@ -473,18 +510,18 @@ Wait for each tool to complete before calling the next one."""
             else:
                 result = f"Tool {tool_name} not found"
             
-            # Add tool result to messages
             messages.append({
                 "role": "tool",
                 "content": result,
                 "tool_call_id": tool_call["id"]
             })
     
-    result = response
-    
     print("\n" + "="*70)
     print("WORKFLOW COMPLETE")
     print("="*70)
     print(f"\nFinal State:")
     print(json.dumps(cargo_state, indent=2))
+    
+    # Save state for next run
+    save_state()
     print("="*70)

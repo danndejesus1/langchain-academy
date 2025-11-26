@@ -1,9 +1,9 @@
 from langchain_core.messages import SystemMessage
-from langchain_openai import ChatOpenAI
+from langchain_openai import AzureChatOpenAI
 
 from langgraph.graph import START, StateGraph, MessagesState
 from langgraph.prebuilt import tools_condition, ToolNode
-
+import os
 def add(a: int, b: int) -> int:
     """Adds a and b.
 
@@ -34,7 +34,12 @@ def divide(a: int, b: int) -> float:
 tools = [add, multiply, divide]
 
 # Define LLM with bound tools
-llm = ChatOpenAI(model="gpt-4o")
+llm = AzureChatOpenAI(
+            model=os.getenv('AZURE_OPENAI_DEPLOYMENT'),
+            azure_endpoint=os.getenv('AZURE_OPENAI_ENDPOINT'),
+            api_key=os.getenv('AZURE_OPENAI_API_KEY'),
+            api_version="2025-04-01-preview",
+        )
 llm_with_tools = llm.bind_tools(tools)
 
 # System message

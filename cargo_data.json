@@ -1,0 +1,184 @@
+{
+  "shipments": [
+    {
+      "id": "https://onerecord.iata.org/Shipment/Shipment_4ad0c7bf",
+      "goodsDescription": "Electronics",
+      "totalGrossWeight": 1000.0,
+      "totalPiece": 10,
+      "incoterms": "DAP"
+    },
+    {
+      "id": "https://onerecord.iata.org/Shipment/Shipment_73f19c1c",
+      "goodsDescription": "Clothing",
+      "totalGrossWeight": 500.0,
+      "totalPiece": 5,
+      "incoterms": "FOB"
+    }
+  ],
+  "waybills": [
+    {
+      "waybill_id": "Waybill_77854114",
+      "waybillType": "Airway Bill",
+      "waybillPrefix": 123,
+      "waybillNumber": 456789,
+      "shipment": "Shipment_4ad0c7bf",
+      "departureLocation": "Location_4172bfa9",
+      "arrivalLocation": "Location_a7185ffc",
+      "modularCheckNumber": true,
+      "carrierDeclarationDate": "2025-11-26T00:59:25.922920+00:00",
+      "carrierDeclarationSignature": "SignatureCarrierA",
+      "consignorDeclarationSignature": "SignatureConsignorA",
+      "shippingInfo": "Handle with care"
+    },
+    {
+      "waybill_id": "Waybill_516587b0",
+      "waybillType": "Sea Waybill",
+      "waybillPrefix": 124,
+      "waybillNumber": 987654,
+      "shipment": "Shipment_73f19c1c",
+      "departureLocation": "Location_4172bfa9",
+      "arrivalLocation": "Location_bef31319",
+      "modularCheckNumber": false,
+      "carrierDeclarationDate": "2025-11-26T00:59:25.923629+00:00",
+      "carrierDeclarationSignature": "SignatureCarrierB",
+      "consignorDeclarationSignature": "SignatureConsignorB",
+      "shippingInfo": "Keep dry"
+    }
+  ],
+  "parties": [
+    {
+      "party_id": "Party_b51d5b59",
+      "partyROLE": "Carrier",
+      "partyDetails": "Company_6c767efd"
+    },
+    {
+      "party_id": "Party_4a5d1b08",
+      "partyROLE": "Consignor",
+      "partyDetails": "Company_6c767efd"
+    }
+  ],
+  "companies": [
+    {
+      "company_id": "Company_6c767efd",
+      "name": "Global Logistics Ltd.",
+      "shortName": "GLL",
+      "iataCargoAgentCode": 101,
+      "iataCargoAgentLocationIdentifier": "LOC101",
+      "basedAtLocation": "Location A"
+    }
+  ],
+  "locations": [
+    {
+      "location_id": "Location_4172bfa9",
+      "locationName": "Location A",
+      "locationType": "Warehouse",
+      "locationCodes": "LOC101"
+    },
+    {
+      "location_id": "Location_a7185ffc",
+      "locationName": "Location B",
+      "locationType": "Port",
+      "locationCodes": "LOC102"
+    },
+    {
+      "location_id": "Location_bef31319",
+      "locationName": "Location C",
+      "locationType": "Airport",
+      "locationCodes": "LOC103"
+    }
+  ],
+  "pieces": [
+    {
+      "id": "Piece_ef792afe",
+      "ofShipment": "Shipment_4ad0c7bf",
+      "upid": 101,
+      "dimensions": "DIM_eab6c417",
+      "grossWeight": 100.0,
+      "goodsDescription": "Electronics Batch 1"
+    },
+    {
+      "id": "Piece_8881931e",
+      "ofShipment": "Shipment_4ad0c7bf",
+      "upid": 102,
+      "dimensions": "DIM_94445db1",
+      "grossWeight": 200.0,
+      "goodsDescription": "Electronics Batch 2"
+    },
+    {
+      "id": "Piece_d58c48d6",
+      "ofShipment": "Shipment_73f19c1c",
+      "upid": 201,
+      "dimensions": "DIM_6ec7dc4c",
+      "grossWeight": 250.0,
+      "goodsDescription": "Clothing Batch 1"
+    },
+    {
+      "id": "Piece_ad03474f",
+      "ofShipment": "Shipment_73f19c1c",
+      "upid": 202,
+      "dimensions": "DIM_911e7f3f",
+      "grossWeight": 250.0,
+      "goodsDescription": "Clothing Batch 2"
+    }
+  ],
+  "items": [
+    {
+      "id": "Item_d8492654",
+      "inPiece": "Piece_ef792afe",
+      "ofProduct": "Product_7ef2a3d0",
+      "itemQuantity": 50,
+      "weight": 50.0,
+      "unitPrice": 600.0
+    },
+    {
+      "id": "Item_6e033fb0",
+      "inPiece": "Piece_8881931e",
+      "ofProduct": "Product_2f89ad19",
+      "itemQuantity": 50,
+      "weight": 150.0,
+      "unitPrice": 1200.0
+    },
+    {
+      "id": "Item_c5ce7bae",
+      "inPiece": "Piece_d58c48d6",
+      "ofProduct": "Product_c92ad42b",
+      "itemQuantity": 100,
+      "weight": 150.0,
+      "unitPrice": 20.0
+    },
+    {
+      "id": "Item_1b37d638",
+      "inPiece": "Piece_ad03474f",
+      "ofProduct": "Product_5c37d372",
+      "itemQuantity": 50,
+      "weight": 100.0,
+      "unitPrice": 40.0
+    }
+  ],
+  "products": [
+    {
+      "id": "Product_7ef2a3d0",
+      "name": "Smartphone",
+      "code": "SPH1001",
+      "price": 600.0
+    },
+    {
+      "id": "Product_2f89ad19",
+      "name": "Laptop",
+      "code": "LTP2001",
+      "price": 1200.0
+    },
+    {
+      "id": "Product_c92ad42b",
+      "name": "T-shirt",
+      "code": "TSH3001",
+      "price": 20.0
+    },
+    {
+      "id": "Product_5c37d372",
+      "name": "Jeans",
+      "code": "JNS4001",
+      "price": 40.0
+    }
+  ]
+}
